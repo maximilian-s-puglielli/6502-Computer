@@ -6,12 +6,14 @@
 #include <Arduino.h>
 
 static constexpr byte ADDR_CNT = 12;
-static constexpr byte ADDR_PINS[ADDR_CNT] = { 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-static constexpr byte CLK = 3;
+static constexpr byte ADDR_PINS[ADDR_CNT] = { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+static constexpr byte CLK = 2;
 
 void setup(void)
 {
     Serial.begin(57600);
+    Serial.println();
+    Serial.println("SERIAL STARTED 57600");
 
     {
         const byte* ptr = ADDR_PINS;
@@ -21,7 +23,7 @@ void setup(void)
     }
     pinMode(CLK, INPUT);
 
-    attachInterrupt(digitalPinToInterrupt(CLK), OnClockRise, 2);
+    attachInterrupt(digitalPinToInterrupt(CLK), OnClockRise, FALLING);
 }
 
 void loop(void)
