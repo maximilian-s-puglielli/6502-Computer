@@ -39,4 +39,13 @@ This is our attempt at Ben Eater's 6502 8-bit Computer project.  Here are some l
 
 ![6502 Schematic](.\6502Schematic.png)
 
+## Data Sheets
+
+  - [Microprocessor (CPU): W65C02](https://eater.net/datasheets/w65c02s.pdf)
+  - [Interface Adapter (VIA): W65C22](https://eater.net/datasheets/w65c22.pdf)
+  - [Display Controller (LCD)](https://eater.net/datasheets/HD44780.pdf)
+  - [NAND Gate Chip](https://eater.net/datasheets/74hc00.pdf)
+  - [Program Memory (EEPROM): 28C256](https://eater.net/datasheets/28c256.pdf)
+  - [Data Memory (SRAM): 62256](https://eater.net/datasheets/hm62256b.pdf)
+
 # Documentation
