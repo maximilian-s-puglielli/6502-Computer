@@ -35,4 +35,8 @@ This is our attempt at Ben Eater's 6502 8-bit Computer project.  Here are some l
   - [Hardware interrupts](https://www.youtube.com/watch?v=DlEa8kd7n3Q&list=PLowKtXNTBypFbtuVMUVXNR0z1mu7dp7eH&index=11)
   - [Interrupt handling](https://www.youtube.com/watch?v=oOYA-jsWTmc&list=PLowKtXNTBypFbtuVMUVXNR0z1mu7dp7eH&index=12)
 
+## Schematic
+
+![6502 Schematic](.\6502Schematic.png)
+
 # Documentation
