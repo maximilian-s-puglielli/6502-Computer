@@ -48,4 +48,22 @@ This is our attempt at Ben Eater's 6502 8-bit Computer project.  Here are some l
   - [Program Memory (EEPROM): 28C256](https://eater.net/datasheets/28c256.pdf)
   - [Data Memory (SRAM): 62256](https://eater.net/datasheets/hm62256b.pdf)
 
-# Documentation
+# Documentation (Last Updated 12/16/20)
+## Clock Construction and Testing
+Building a working CPU clock that allowed for automatic and manual pulsing took several attempts. At the time of writing this, it is unclear *why* the clock initially continued to exhibit bouncing behavior. The issue was debugged by looking at each module of the clock and double checking connections. In addition signals were tested in essential areas to make sure the wires themselves were functioning properly. No mistakes were found during this stage of debugging, yet the clock still showed bouncing behavior. A full rebuild of the clock was made from scratch. The full rebuild although appearing identical to the original does not have the same problem. This was a large expenditure of time. Ultimately, the final clock build was functional and accepted to be complete for the purposes of this project. 
+
+### Note on Clock Validation: 
+The clock does not allow the user to precisely set the timing. As a result, observing LED illumination was satisfactory for debugging in most cases. For the button bouncing issue, it was much harder to observe the problem without electronic tools. The Arduino and it's built-in interrupt functionality was used to print a line to the computer console every time the clock pulsed. If the button bounced, more than one line would print to the console with only one button press. Although not for sure, it was likely that the Arduino did not deliver reliably for the entirety of the debugging process. There was inconsistency between the documentation and observed behavior of the Arduino regarding the interrupt pin. It is possible that the prepossessor macros were labeled incorrectly.  
+
+## CPU Construction and Testing
+The CPU was connected to the breadboard and wired up per the schematics. There were two stages of this process: (1) the **NO-OP** code was manually wired to the data pins using resistors, (2) the same **NO-OP** code was programmed into the ROM and wired to the CPU. In theory, these steps should have resulted in the same instructions and outputs to and from the CPU. During the entire process, there was lots of "unexplained" variability in results. It is likely that human error was responsible for this variation, although it was impossible to observe from the exhaustive testing that was done. Eventually, the CPU printed what was expected from the hard wired NO-OP code. 
+
+Connecting the ROM chip with the same NO-OP code resulted in odd behavior for a long time once again. Eventually, correct behavior was observed in conjunction with new insight at this point in the process(see Note on CPU Reset).
+
+### Note on CPU Reset
+The CPU in this project has a reset cycle like most CPUs. It is important to note, that the startup operations are not always identical. This was determined from experimentation and debugging. It appears that these start codes are not significant to any functionality. The last few CPU outputs from the reset operation are always the same however. This matches the documentation's description of the reset operation. The documentation does not say anything about the beginning of the reset operation which appears to be random. 
+
+Strange behavior that would affect the computer's overall operation was noted when the reset operation was done incorrectly. Through experimentation, it was determined that disconnecting all power resulted in a proper reset but not the reset button. **This is because the reset pin (button) must be held LOW for at least 2 clock cycles before releasing.** After a proper reset, the CPU should execute 7 cycles and the last two outputs are intentional. 
+
+### Notes on CPU Validation
+LED's were used to read bits manually for each CPU cycle. Binary was written down and converted to hexadecimal. This was how all debugging was done. Normally, the arduino would print these operations instantly, however, it was difficult to determine whether the Arduino interrupt pin was causing issues. 
