@@ -5,19 +5,28 @@
 
 #include <Arduino.h>
 
-static constexpr byte A_IN_PIN = A0;
+static constexpr byte PIN_CLK = 3;
+
+static volatile byte Var;
 
 void setup(void)
 {
     Serial.begin(57600);
     Serial.println();
     Serial.println("STARTED SERIAL MONITOR AT 57600 BAUD");
+
+    pinMode(PIN_CLK, INPUT);
+
+    attachInterrupt(digitalPinToInterrupt(PIN_CLK), OnClock, RISING);
+
+    Var = 0;
 }
 
-void loop(void)
+void loop(void) {}
+
+void OnClock(void)
 {
-    int rd = analogRead(A_IN_PIN);
-    Serial.print("READ: ");
-    Serial.println(rd);
-    delay(1000);
+    Serial.print("VAR: ");
+    Serial.println(Var);
+    Var++;
 }

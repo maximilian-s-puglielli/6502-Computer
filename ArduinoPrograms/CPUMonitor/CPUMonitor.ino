@@ -5,9 +5,9 @@
 
 #include <Arduino.h>
 
-static constexpr byte CLOCK = 2;
+static constexpr byte CLOCK = 3;
 static constexpr byte ADDR_BUS_DIGITAL_CNT = 12;
-static constexpr byte ADDR_BUS_DIGITAL[ADDR_BUS_DIGITAL_CNT] = { 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 1 };
+static constexpr byte ADDR_BUS_DIGITAL[ADDR_BUS_DIGITAL_CNT] = { 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 // static constexpr byte ADDR_BUS_ANALOG_CNT = 4;
 // static constexpr byte ADDR_BUS_ANALOG[ADDR_BUS_ANALOG_CNT] = { A3, A2, A1, A0 };
 
@@ -25,10 +25,14 @@ void setup(void)
             pinMode(*ptr, INPUT);
     }
 
-    attachInterrupt(digitalPinToInterrupt(CLOCK), OnClockRise, FALLING);
+    attachInterrupt(digitalPinToInterrupt(CLOCK), OnClockRise, RISING);
 }
 
-void loop(void) {}
+void loop(void)
+{
+    // OnClockRise();
+    // delay(1000);
+}
 
 void OnClockRise(void)
 {
@@ -42,9 +46,9 @@ void OnClockRise(void)
     //         addr |= ( (analogRead(*ADDR_BUS_ANALOG) >= 512) ? 0x1 : 0x0 );
     //     }
     // }
-    unsigned int addr = (digitalRead(*ADDR_BUS_DIGITAL) ? 0x1 : 0x0);
+    unsigned int addr = 0x0;
     {
-        const byte* ptr = ADDR_BUS_DIGITAL + 1;
+        const byte* ptr = ADDR_BUS_DIGITAL;
         const byte* const end = ptr + ADDR_BUS_DIGITAL_CNT;
         for (; ptr < end; ptr++)
         {
@@ -52,6 +56,8 @@ void OnClockRise(void)
             addr |= (digitalRead(*ptr) ? 0x1 : 0x0);
         }
     }
+    addr &= 0xFFF;
+    addr |= 0xF000;
     Serial.print(addr, BIN);
     Serial.print("    ");
     Serial.print(addr, HEX);
