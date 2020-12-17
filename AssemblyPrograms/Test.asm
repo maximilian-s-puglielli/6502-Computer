@@ -50,7 +50,7 @@ main:
     sta PORTA
     lda #(RS | E)   ; Set E bit to send instruction
     sta PORTA
-    lda #RS         ; Clear E bits
+    lda #0          ; Clear RS/RW/E bits
     sta PORTA
 
     lda #"e"
@@ -59,7 +59,7 @@ main:
     sta PORTA
     lda #(RS | E)   ; Set E bit to send instruction
     sta PORTA
-    lda #RS         ; Clear E bits
+    lda #0          ; Clear RS/RW/E bits
     sta PORTA
 
     jmp main
