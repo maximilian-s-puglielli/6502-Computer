@@ -3,4 +3,4 @@
 **/.vscode
 
 # BINARY MEMORY IMAGES
-*.bin
+# *.bin
