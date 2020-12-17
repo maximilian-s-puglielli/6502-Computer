@@ -2,6 +2,9 @@
     lda #$FF
     sta $6002
 
+    lda #$E0
+    sta $6001
+
 loop:
     lda #$55
     sta $6000
