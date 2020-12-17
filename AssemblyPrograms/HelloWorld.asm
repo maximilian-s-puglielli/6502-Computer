@@ -3,9 +3,9 @@ PORTA = $6001
 DDRB  = $6002
 DDRA  = $6003
 
-E  = $80
-RW = $40
-RS = $20
+E  = $80    ; 1000 0000
+RW = $40    ; 0100 0000
+RS = $20    ; 0010 0000
 
     .org $8000
 start:
@@ -25,7 +25,7 @@ setdisplay:
     lda #0
     sta PORTA
 
-    lda #$0E    ; Display on, cursor on, blink off
+    lda #$0F    ; Display on, cursor on, blink on
     sta PORTB
     lda #0
     sta PORTA
@@ -34,7 +34,7 @@ setdisplay:
     lda #0
     sta PORTA
 
-    lda #$06    ; Increment and shift cursor, don't shift display
+    lda #$06    ; Increment cursor, don't shift display
     sta PORTB
     lda #0
     sta PORTA
@@ -152,8 +152,16 @@ main:
     lda #RS
     sta PORTA
 
-exit:
-    jmp exit
+    lda #'!'        ; Write an !
+    sta PORTB
+    lda #RS
+    sta PORTA
+    lda #(RS | E)   ; Send character
+    sta PORTA
+    lda #RS
+    sta PORTA
+
+    jmp main
 
     .org $FFFC
     .word start     ; Set the reset vector
