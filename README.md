@@ -67,3 +67,20 @@ Strange behavior that would affect the computer's overall operation was noted wh
 
 ### Notes on CPU Validation
 LED's were used to read bits manually for each CPU cycle. Binary was written down and converted to hexadecimal. This was how all debugging was done. Normally, the arduino would print these operations instantly, however, it was difficult to determine whether the Arduino interrupt pin was causing issues. 
+
+## CPU Interface
+The CPU interface was successfully connected and operational. Binaries were written both manually and with assembly to test functionality. The "blinking" LED sequence was successfully written to the rom. This was one of the smoother steps of the process with few hiccups.
+
+## LCD "HELLOWORLD"
+The LCD was connected to the interface chip. In theory, this should not have changed any of the hardware assembled before this. The Hello World program was made in assembly. It did not work. The CPU instructions froze and only outputted an "H" on the LCD screen. To confirm that this was not a programming issue, Ben Eater's code was directly burned to the ROM. The same behavior was observed. Connecting LED's and the LCD to the output shows that the output is behaving as expected for our old programs but not our new Hello World program. It is unclear if this is a software or hardware issue since both are fully functional in isolated situations:
+| Program Configuration | Hardware Configuration | Result |
+|-|-|-|
+|Blinking Code|Interface,LEDs|Blinking Lights|
+|Blinking Code|Interface,LCD,LEDs|Blinking Lights|
+|Hello Code| Interface,LCD,LEDs| "H" and Freeze
+
+## RAM Chip 
+-
+
+## Takeaways for Computer #2
+-
