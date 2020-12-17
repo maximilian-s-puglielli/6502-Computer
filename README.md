@@ -1,5 +1,5 @@
 AUTHOR:  Maximilian S Puglielli (MSP)<br>
-AUTHOR:  Maxwell M Parker<br>
+AUTHOR:  Maxwell M Parker (MMP)<br>
 DATE:    2020.12.13<br>
 VERSION: 1.0.0.0<br>
 
