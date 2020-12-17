@@ -62,6 +62,33 @@ main:
     lda #0          ; Clear RS/RW/E bits
     sta PORTA
 
+    lda #"l"
+    sta PORTB
+    lda #RS         ; Set RS; Clear RW/E bits
+    sta PORTA
+    lda #(RS | E)   ; Set E bit to send instruction
+    sta PORTA
+    lda #0          ; Clear RS/RW/E bits
+    sta PORTA
+
+    lda #"l"
+    sta PORTB
+    lda #RS         ; Set RS; Clear RW/E bits
+    sta PORTA
+    lda #(RS | E)   ; Set E bit to send instruction
+    sta PORTA
+    lda #0          ; Clear RS/RW/E bits
+    sta PORTA
+
+    lda #"o"
+    sta PORTB
+    lda #RS         ; Set RS; Clear RW/E bits
+    sta PORTA
+    lda #(RS | E)   ; Set E bit to send instruction
+    sta PORTA
+    lda #0          ; Clear RS/RW/E bits
+    sta PORTA
+
     jmp main
 
     .org $FFFC
