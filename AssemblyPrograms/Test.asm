@@ -5,20 +5,20 @@ DDRA  = $6003
 
     .org $8000
 reset:
-    lda #$FF
+    lda #%11111111
     sta DDRB
 
-    lda #$E0
+    lda #%11100000
     sta DDRA
 
 main:
-    lda #$55
+    lda #'a'
     sta PORTB
 
     lda #$C0
     sta PORTA
 
-    lda #$AA
+    lda #'z'
     sta PORTB
 
     lda #$60
