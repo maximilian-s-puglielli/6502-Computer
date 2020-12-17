@@ -79,6 +79,14 @@ The LCD was connected to the interface chip. In theory, this should not have cha
 |Blinking Code|Interface,LCD,LEDs|Blinking Lights|
 |Hello Code| Interface,LCD,LEDs| "H" and Freeze
 
+### Debugging Notes
+- LCD always stops on an H. 
+- Plugging in an unrelated LED caused the CPU to go forward. 
+- Some sort of electrical and programming issue. 
+- Replacing the ROM chip **fixed this issue.** It appears that flashing time and time again caused fatigue failure in the pins and prevented a reliable connection between ROM and CPU
+
+**DECISION:** It was decided to flash the ROM chip with assembly code from Ben Eater that represents the final state of the project. There will be no more flashing after this to prevent the pin fatigue issue until a solution is found. 
+
 ## RAM Chip 
 -
 
