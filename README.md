@@ -1,11 +1,18 @@
-AUTHOR:  Maximilian S Puglielli (MSP)<br>
-AUTHOR:  Maxwell M Parker (MMP)<br>
+AUTHOR:  Maximilian S Puglielli (MSP) - *Computer Science (director of bits)*<br>
+AUTHOR:  Maxwell M Parker (MMP) - *Mechanical Engineering (principle gear grinder)*<br>
 DATE:    2020.12.13<br>
 VERSION: 1.0.0.0<br>
 
-# 6502 8-bit Breadboarded Computer Project
+# <span style="color:lightgreen">Project Executive Summary</span>
+The purpose of this project is to (1) build a computer based on 6502 microprocessor, (2) refine electronics and programming debugging skills, and (3) learn how simple computers tie together the CPU, ROM, RAM, IO. 
 
-This is our attempt at Ben Eater's 6502 8-bit Computer project.  Here are some links to his website where we bought all the materials and his YouTube video tutorials.
+This project is guided by a tutorial from Ben Eater at Khan Academy. A kit was purchased with all the necessary parts for this project to reduce the effort in sourcing. A series of YouTube videos guide the construction and programming of the computer, although debugging, installation, experimentation, and configuration all all up to the individual building the computer. 
+
+The computer construction took place in several stages. First a clock was built for CPU timing and debugging. Next, the CPU was hardcoded with LED's and Resistors to test most basic functionality. This configuration was modified so that the CPU could interface with the ROM chip and the IO Interface chip. The IO Interface chip was used to communicate with an LCD screen. The last stage of computer construction was adding RAM. An assembler was installed for this computer so that programs could be flashed directly the ROM chip using assembly. 
+
+This project functioned as an educational experience about computers and offered a fantastic opportunity to refine engineering skills. Questions about this project may be addressed to parkerm21@up.edu, pugliell21@up.edu.
+
+# <span style="color:lightgreen">Resources</span>
 
 ## Ben Eater's Website
 
@@ -37,7 +44,7 @@ This is our attempt at Ben Eater's 6502 8-bit Computer project.  Here are some l
 
 ## Schematic
 
-![6502 Schematic](.\6502Schematic.png)
+![6502 Schematic](6502Schematic.png)
 
 ## Data Sheets
 
@@ -48,7 +55,7 @@ This is our attempt at Ben Eater's 6502 8-bit Computer project.  Here are some l
   - [Program Memory (EEPROM): 28C256](https://eater.net/datasheets/28c256.pdf)
   - [Data Memory (SRAM): 62256](https://eater.net/datasheets/hm62256b.pdf)
 
-# Documentation (Last Updated 12/16/20)
+# <span style="color:lightgreen">Documentation</span>
 ## Clock Construction and Testing
 Building a working CPU clock that allowed for automatic and manual pulsing took several attempts. At the time of writing this, it is unclear *why* the clock initially continued to exhibit bouncing behavior. The issue was debugged by looking at each module of the clock and double checking connections. In addition signals were tested in essential areas to make sure the wires themselves were functioning properly. No mistakes were found during this stage of debugging, yet the clock still showed bouncing behavior. A full rebuild of the clock was made from scratch. The full rebuild although appearing identical to the original does not have the same problem. This was a large expenditure of time. Ultimately, the final clock build was functional and accepted to be complete for the purposes of this project. 
 
