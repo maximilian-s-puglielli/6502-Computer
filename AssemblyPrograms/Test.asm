@@ -62,8 +62,7 @@ main:
     lda #RS         ; Clear E bits
     sta PORTA
 
-exit:
-    jmp exit
+    jmp main
 
     .org $FFFC
     .word reset
