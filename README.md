@@ -95,7 +95,10 @@ The LCD was connected to the interface chip. In theory, this should not have cha
 **DECISION:** It was decided to flash the ROM chip with assembly code from Ben Eater that represents the final state of the project. There will be no more flashing after this to prevent the pin fatigue issue until a solution is found. 
 
 ## RAM Chip 
--
+No major issues were encountered implementing the RAM chip. 
+
+## Assembly
+Programming in assembly requires a high attention to detail. This was difficult for many reasons although the overarching goal was not hard to understand. Our assembly code was fine, although Ben Eater's code was implemented later since we knew it would always work. This would reduce the amount of times we had to take the ROM chip out to reprogram. This was important since the pins easily wear out. 
 
 ## Takeaways for Computer #2
--
+The second computer was built from scratch by copying the other computer. No intermediate tests were done. This computer did not work at all. It was nearly impossible to figure out what was wrong. As of now, the computer is complete but does not run the program as it should. Further debugging or complete rebuilding must be performed to find the issue. It is likely that our breadboard, wires, chips, components, etc. are wired very close to correct or even perfectly. There are lots of variables that could cause any of these links to fail such as physical factors. Unfortuantely, using hobby equipment will result in these frustrations. Therefore, a rebuild is likely in order. 
