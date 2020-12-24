@@ -1,7 +1,3 @@
-;;; AUTHOR:  Maximilian S Puglielli (MSP)
-;;; CREATED: 2020.12.23
-
-;;; DEFINED CONSTANTS
 PORTB = $6000
 PORTA = $6001
 DDRB  = $6002
@@ -11,97 +7,87 @@ E  = %10000000
 RW = %01000000
 RS = %00100000
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; PROGRAM START
     .org $8000
-main:
-    lda #%11111111  ; Set all pins on port B to output
-    sta DDRB
 
-    lda #%11100000  ; Set top 3 pins on port A to output
+main:
+    jsr reset
+
+    ldx #0
+print:
+    lda message,x
+    beq exit
+    jsr print_char
+    inx
+    jmp print
+
+exit:
+    jmp exit
+
+reset:
+    ldx #$ff
+    txs
+
+    lda #%11111111 ; Set all pins on port B to output
+    sta DDRB
+    lda #%11100000 ; Set top 3 pins on port A to output
     sta DDRA
 
-    lda #%00111000  ; Set 8-bit mode, 2-line display, 5x8 font
-    sta PORTB
-    lda #0          ; Clear E/RW/RS bits
-    sta PORTA
-    lda #E          ; Set E bit => send instruction to LCD
-    sta PORTA
-    lda #0          ; Clear E/RW/RS bits
-    sta PORTA
+    lda #%00111000 ; Set 8-bit mode; 2-line display; 5x8 font
+    jsr lcd_instruction
+    lda #%00001110 ; Display on; cursor on; blink off
+    jsr lcd_instruction
+    lda #%00000110 ; Increment and shift cursor; don't shift display
+    jsr lcd_instruction
+    lda #$00000001 ; Clear display
+    jsr lcd_instruction
 
-    lda #%00001110  ; Display on; cursor on; blink off
-    sta PORTB
-    lda #0          ; Clear E/RW/RS bits
-    sta PORTA
-    lda #E          ; Set E bit => send instruction to LCD
-    sta PORTA
-    lda #0          ; Clear E/RW/RS bits
-    sta PORTA
+    rts
 
-    lda #%00000110  ; Increment and shift cursor, don't shift display
-    sta PORTB
-    lda #0          ; Clear E/RW/RS bits
+lcd_wait:
+    pha
+    lda #%00000000  ; Port B is input
+    sta DDRB
+lcdbusy:
+    lda #RW
     sta PORTA
-    lda #E          ; Set E bit => send instruction to LCD
+    lda #(RW | E)
     sta PORTA
-    lda #0          ; Clear E/RW/RS bits
-    sta PORTA
+    lda PORTB
+    and #%10000000
+    bne lcdbusy
 
-    lda #'H'        ; Write an H to LCD
-    sta PORTB
-    lda #RS         ; Set RS, Clear RW/E bits
+    lda #RW
     sta PORTA
-    lda #(RS | E)   ; Set E bit => send instruction to LCD
-    sta PORTA
-    lda #RS         ; Clear E bit
-    sta PORTA
+    lda #%11111111  ; Port B is output
+    sta DDRB
+    pla
+    rts
 
-    lda #'e'        ; Write an e to LCD
+lcd_instruction:
+    jsr lcd_wait
     sta PORTB
-    lda #RS         ; Set RS, Clear RW/E bits
+    lda #0         ; Clear RS/RW/E bits
     sta PORTA
-    lda #(RS | E)   ; Set E bit => send instruction to LCD
+    lda #E         ; Set E bit to send instruction
     sta PORTA
-    lda #RS         ; Clear E bit
+    lda #0         ; Clear RS/RW/E bits
     sta PORTA
+    rts
 
-    lda #'l'        ; Write an l to LCD
+print_char:
+    jsr lcd_wait
     sta PORTB
-    lda #RS         ; Set RS, Clear RW/E bits
+    lda #RS         ; Set RS; Clear RW/E bits
     sta PORTA
-    lda #(RS | E)   ; Set E bit => send instruction to LCD
+    lda #(RS | E)   ; Set E bit to send instruction
     sta PORTA
-    lda #RS         ; Clear E bit
+    lda #RS         ; Clear E bits
     sta PORTA
+    rts
 
-    lda #'l'        ; Write another l to LCD
-    sta PORTB
-    lda #RS         ; Set RS, Clear RW/E bits
-    sta PORTA
-    lda #(RS | E)   ; Set E bit => send instruction to LCD
-    sta PORTA
-    lda #RS         ; Clear E bit
-    sta PORTA
-
-    lda #'o'        ; Write an o to LCD
-    sta PORTB
-    lda #RS         ; Set RS, Clear RW/E bits
-    sta PORTA
-    lda #(RS | E)   ; Set E bit => send instruction to LCD
-    sta PORTA
-    lda #RS         ; Clear E bit
-    sta PORTA
-
-loop:
-    lda #$55
-    sta PORTB
-    lda #$AA
-    sta PORTB
-    jmp loop
+message:    .asciiz     "Hello, world!"
 
     .org $FFFA
-    .word main  ; INTERRUPT VECTOR #1
-    .word main  ; CPU RESET VECTOR
-    .word main  ; INTERRUPT VECTOR #2
+    .word main
+    .word main
+    .word main
