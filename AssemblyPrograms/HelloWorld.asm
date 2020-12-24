@@ -160,8 +160,8 @@ reset:
     lda #RS         ; Clear E bits
     sta PORTA
 
-loop:
-    jmp loop
+exit:
+    jmp exit
 
     .org $fffc
     .word reset
