@@ -1,7 +1,9 @@
 # VS CODE CONFIGURATION FILES
 .vscode
 **/.vscode
-.DS_Store #a hidden file that mac uses for something, shows on windows explorer 
+
+# A hidden file that mac uses for something, shows on windows explorer
+.DS_Store
 
 # BINARY MEMORY IMAGES
-# *.bin
+*.bin
