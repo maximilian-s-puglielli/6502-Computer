@@ -3,9 +3,7 @@
 
 ;;; DEFINED CONSTANTS
 PORTB = $6000
-; PORTA = $6001
 DDRB  = $6002
-; DDRA  = $6003
 
 ;;; PROGRAM START
     .org $8000
@@ -13,13 +11,14 @@ main:
     lda #%11111111
     sta DDRB
 
-loop:
+blink:
     lda #$55
     sta PORTB
     lda #$AA
     sta PORTB
-    jmp loop
+    jmp blink
 
-    .org $FFFC
+    .org $FFFA
+    .word $0000
     .word main
     .word $0000
