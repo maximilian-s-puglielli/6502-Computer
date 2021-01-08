@@ -44,7 +44,7 @@ This project functioned as an educational experience about computers and offered
 
 ## Schematic
 
-![6502 Schematic](6502Schematic.png)
+![6502 Schematic](Images/6502Schematic.png)
 
 ## Datasheets
 
